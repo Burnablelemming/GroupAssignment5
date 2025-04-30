@@ -74,6 +74,7 @@ public class AddPetDialog extends JDialog{
 		JButton addPetDialogButton = new JButton("Add");
 		addPetDialogButton.setBounds(10, 227, 89, 23);
 		getContentPane().add(addPetDialogButton);
+		
 		addPetDialogButton.addActionListener(new ActionListener() {
 			// Validating input while dialog is open
 			public void actionPerformed(ActionEvent e) {
