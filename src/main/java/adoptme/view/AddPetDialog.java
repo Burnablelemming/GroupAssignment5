@@ -2,20 +2,19 @@ package adoptme.view;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
 public class AddPetDialog extends JDialog{
+	
 	private JTextField nameTextField;
 	private JTextField ageTextField;
 	private JTextField typeTextField;
 	private JTextField speciesTextField;
 	private JTextField idTextField;
+	private JButton addPetDialogButton;
+	private JButton cancelPetDialogButton;
 	private boolean submitted = false;
 	
 	public AddPetDialog() {
@@ -71,66 +70,81 @@ public class AddPetDialog extends JDialog{
 		getContentPane().add(idTextField);
 		idTextField.setColumns(10);
 		
-		JButton addPetDialogButton = new JButton("Add");
+		addPetDialogButton = new JButton("Submit");
 		addPetDialogButton.setBounds(10, 227, 89, 23);
 		getContentPane().add(addPetDialogButton);
 		
-		addPetDialogButton.addActionListener(new ActionListener() {
-			// Validating input while dialog is open
-			public void actionPerformed(ActionEvent e) {
-				String name = nameTextField.getText().trim();
-				String ageStr = ageTextField.getText().trim();
-				
-				if(name.isEmpty()) {
-					JOptionPane.showMessageDialog(AddPetDialog.this, "Name cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-				try {
-                    Integer parsedAge = Integer.parseInt(ageStr);
-                    if (parsedAge < 0) {
-                        JOptionPane.showMessageDialog(AddPetDialog.this, "Age must be a non-negative number.", "Input Error", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(AddPetDialog.this, "Age must be a valid number.", "Input Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-				
-				submitted = true;
-				setVisible(false);
-			}
-		});
+//		addPetDialogButton.addActionListener(new ActionListener() {
+//			// Validating input while dialog is open
+//			public void actionPerformed(ActionEvent e) {
+//				String name = nameTextField.getText().trim();
+//				String ageStr = ageTextField.getText().trim();
+//				
+//				if(name.isEmpty()) {
+//					JOptionPane.showMessageDialog(AddPetDialog.this, "Name cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
+//					return;
+//				}
+//				try {
+//                    Integer parsedAge = Integer.parseInt(ageStr);
+//                    if (parsedAge < 0) {
+//                        JOptionPane.showMessageDialog(AddPetDialog.this, "Age must be a non-negative number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+//                        return;
+//                    }
+//                } catch (NumberFormatException ex) {
+//                    JOptionPane.showMessageDialog(AddPetDialog.this, "Age must be a valid number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+//                    return;
+//                }
+//				
+//				submitted = true;
+//				setVisible(false);
+//			}
+//		});
 		
-		JButton cancelPetDialogButton = new JButton("Cancel");
+		cancelPetDialogButton = new JButton("Cancel");
 		cancelPetDialogButton.setBounds(185, 227, 89, 23);
 		getContentPane().add(cancelPetDialogButton);
 		
-		cancelPetDialogButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				submitted = false;
-				setVisible(false);
-			}
-		});
+//		cancelPetDialogButton.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				submitted = false;
+//				setVisible(false);
+//			}
+//		});
 	}
 	
 	public boolean isSubmitted() {
 		return submitted;
 	}
 	
+	public void setSubmitted(boolean submitted) {
+		this.submitted = submitted;
+	}
+	
 	public String getPetName() {
 		return nameTextField.getText();
 	}
+	
 	public String getPetAge() {
 		return ageTextField.getText();
 	}
+	
 	public String getPetType() {
 		return typeTextField.getText();
 	}
+	
 	public String getPetSpecies() {
 		return speciesTextField.getText();
 	}
+	
 	public String getPetId() {
 		return idTextField.getText();
 	}
 	
+	public JButton getAddPetDialogButton() {
+		return addPetDialogButton;
+	}
+	
+	public JButton getCancelPetDialogButtong() {	
+		return cancelPetDialogButton;
+	}
 }
