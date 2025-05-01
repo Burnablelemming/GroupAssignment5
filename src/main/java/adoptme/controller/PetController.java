@@ -43,13 +43,13 @@ public class PetController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			AddPetDialog dialog = new AddPetDialog();
+			AddPetDialog dialog = new AddPetDialog(view);
 			AddPetDialogController dialogController = new AddPetDialogController(dialog);
 			
 			dialog.setVisible(true);
 			
 			if(dialog.isSubmitted()) {
-				
+				System.out.println("Submitted is true");
 				// Pet attributes
 				String name = dialog.getNameTextField().getText();
 				Integer age = Integer.parseInt(dialog.getAgeTextField().getText());
@@ -78,8 +78,9 @@ public class PetController {
 					JOptionPane.showMessageDialog(null, "Unknown pet type: " + type);
 				}
 				
+				System.out.println(pet.toString());
 				model.addPet(pet);
-				System.out.println(model.toString());
+				System.out.println(model.getAllPets().toString());
 				
 			}
 			

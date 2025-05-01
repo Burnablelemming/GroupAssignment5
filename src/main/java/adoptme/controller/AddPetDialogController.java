@@ -36,15 +36,16 @@ public class AddPetDialogController {
                 Integer parsedId = Integer.parseInt(idStr);
                 
                 if (parsedAge < 0 || parsedId < 0) {
-                    JOptionPane.showMessageDialog(dialog, "Age must be a non-negative number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(dialog, "Age or ID must be a non-negative number.", "Input Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(dialog, "Age must be a valid number.", "Input Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(dialog, "Age or ID must be a valid number.", "Input Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 			
 			dialog.setSubmitted(true);
+			System.out.println("Input is valid");
 			dialog.setVisible(false);
 		}
 	}
