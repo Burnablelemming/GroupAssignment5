@@ -1,6 +1,7 @@
 package adoptme.view;
 
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import javax.swing.JTextField;
@@ -19,7 +20,10 @@ public class AddPetDialog extends JDialog{
 	private boolean submitted = false;
 	private JComboBox typeComboBox;
 	
-	public AddPetDialog() {
+	public AddPetDialog(JFrame parent) {
+		// Necessary for allowing the dialog to 'pause' the first add event which triggers 
+		// the dialog to appear in the first place, makes the dialog modal
+		super(parent, "Add Pet", true);
 		getContentPane().setLayout(null);
 		setSize(300, 300);
 		
