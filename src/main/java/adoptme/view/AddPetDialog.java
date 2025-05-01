@@ -5,17 +5,19 @@ import javax.swing.JLabel;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class AddPetDialog extends JDialog{
 	
 	private JTextField nameTextField;
 	private JTextField ageTextField;
-	private JTextField typeTextField;
 	private JTextField speciesTextField;
 	private JTextField idTextField;
 	private JButton addPetDialogButton;
 	private JButton cancelPetDialogButton;
 	private boolean submitted = false;
+	private JComboBox comboBox;
 	
 	public AddPetDialog() {
 		getContentPane().setLayout(null);
@@ -54,11 +56,6 @@ public class AddPetDialog extends JDialog{
 		ageTextField.setBounds(66, 96, 86, 20);
 		getContentPane().add(ageTextField);
 		ageTextField.setColumns(10);
-		
-		typeTextField = new JTextField();
-		typeTextField.setBounds(66, 121, 86, 20);
-		getContentPane().add(typeTextField);
-		typeTextField.setColumns(10);
 		
 		speciesTextField = new JTextField();
 		speciesTextField.setBounds(66, 146, 86, 20);
@@ -104,6 +101,11 @@ public class AddPetDialog extends JDialog{
 		cancelPetDialogButton.setBounds(185, 227, 89, 23);
 		getContentPane().add(cancelPetDialogButton);
 		
+		comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Dog", "Cat", "Rabbit"}));
+		comboBox.setBounds(66, 120, 86, 22);
+		getContentPane().add(comboBox);
+		
 //		cancelPetDialogButton.addActionListener(new ActionListener() {
 //			public void actionPerformed(ActionEvent e) {
 //				submitted = false;
@@ -120,26 +122,30 @@ public class AddPetDialog extends JDialog{
 		this.submitted = submitted;
 	}
 	
-	public String getPetName() {
-		return nameTextField.getText();
+	public JTextField getNameTextField() {
+		return nameTextField;
 	}
-	
-	public String getPetAge() {
-		return ageTextField.getText();
+
+	public JTextField getAgeTextField() {
+		return ageTextField;
 	}
-	
-	public String getPetType() {
-		return typeTextField.getText();
+
+	public JTextField getSpeciesTextField() {
+		return speciesTextField;
 	}
-	
-	public String getPetSpecies() {
-		return speciesTextField.getText();
+
+	public JTextField getIdTextField() {
+		return idTextField;
 	}
-	
-	public String getPetId() {
-		return idTextField.getText();
+
+	public JButton getCancelPetDialogButton() {
+		return cancelPetDialogButton;
 	}
-	
+
+	public JComboBox getComboBox() {
+		return comboBox;
+	}
+
 	public JButton getAddPetDialogButton() {
 		return addPetDialogButton;
 	}
