@@ -21,16 +21,21 @@ public class AddPetDialogController {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String name = dialog.getName();
-			String ageStr = dialog.getPetAge();
+			String name = dialog.getNameTextField().getText();
+			String ageStr = dialog.getAgeTextField().getText();
+			String species = dialog.getSpeciesTextField().getText();
+			String idStr = dialog.getIdTextField().getText();
 			
-			if(name.isEmpty()) {
+			if(name.isBlank() || ageStr.isBlank() || species.isBlank() || idStr.isBlank()) {
 				JOptionPane.showMessageDialog(dialog, "Name cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 			try {
+				
                 Integer parsedAge = Integer.parseInt(ageStr);
-                if (parsedAge < 0) {
+                Integer parsedId = Integer.parseInt(idStr);
+                
+                if (parsedAge < 0 || parsedId < 0) {
                     JOptionPane.showMessageDialog(dialog, "Age must be a non-negative number.", "Input Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
@@ -49,8 +54,7 @@ public class AddPetDialogController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			dialog.setSubmitted(false);
-			dialog.setVisible(false);
-			
+			dialog.setVisible(false);	
 		}
 	}
 }
