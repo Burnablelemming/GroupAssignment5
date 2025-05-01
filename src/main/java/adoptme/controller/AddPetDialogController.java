@@ -53,8 +53,16 @@ public class AddPetDialogController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			clearTextFields();
 			dialog.setSubmitted(false);
 			dialog.setVisible(false);	
 		}
+	}
+	
+	public void clearTextFields() {
+		dialog.getNameTextField().setText("");
+		dialog.getAgeTextField().setText("");
+		dialog.getSpeciesTextField().setText("");
+		dialog.getIdTextField().setText("");
 	}
 }
