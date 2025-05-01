@@ -27,7 +27,7 @@ public class AddPetDialogController {
 			String idStr = dialog.getIdTextField().getText();
 			
 			if(name.isBlank() || ageStr.isBlank() || species.isBlank() || idStr.isBlank()) {
-				JOptionPane.showMessageDialog(dialog, "Name cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(dialog, "Pet attributes cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 			try {
