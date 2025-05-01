@@ -17,7 +17,7 @@ public class AddPetDialog extends JDialog{
 	private JButton addPetDialogButton;
 	private JButton cancelPetDialogButton;
 	private boolean submitted = false;
-	private JComboBox comboBox;
+	private JComboBox typeComboBox;
 	
 	public AddPetDialog() {
 		getContentPane().setLayout(null);
@@ -101,10 +101,10 @@ public class AddPetDialog extends JDialog{
 		cancelPetDialogButton.setBounds(185, 227, 89, 23);
 		getContentPane().add(cancelPetDialogButton);
 		
-		comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Dog", "Cat", "Rabbit"}));
-		comboBox.setBounds(66, 120, 86, 22);
-		getContentPane().add(comboBox);
+		typeComboBox = new JComboBox();
+		typeComboBox.setModel(new DefaultComboBoxModel(new String[] {"Dog", "Cat", "Rabbit"}));
+		typeComboBox.setBounds(66, 120, 86, 22);
+		getContentPane().add(typeComboBox);
 		
 //		cancelPetDialogButton.addActionListener(new ActionListener() {
 //			public void actionPerformed(ActionEvent e) {
@@ -142,8 +142,8 @@ public class AddPetDialog extends JDialog{
 		return cancelPetDialogButton;
 	}
 
-	public JComboBox getComboBox() {
-		return comboBox;
+	public JComboBox getTypeComboBox() {
+		return typeComboBox;
 	}
 
 	public JButton getAddPetDialogButton() {
