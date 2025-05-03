@@ -2,8 +2,14 @@ package adoptme.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileReader;
+import java.lang.reflect.Type;
+import java.util.List;
 
 import javax.swing.JOptionPane;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import adoptme.model.Cat;
 import adoptme.model.Dog;
@@ -27,6 +33,23 @@ public class PetController {
 		this.view.getRemovePetButton().addActionListener(new RemovePetButtonListener());
 		this.view.getViewPetButton().addActionListener(new ViewPetButtonListener());
 		this.view.getSaveShelterButton().addActionListener(new SaveShelterButtonListener());
+	}
+	
+	// Initialize the Shelter
+	public void initializeShelter() {
+		
+		Gson gson = new Gson();
+		
+		try (FileReader reader = new FileReader("src/main/resources/pets.json")) {
+		    Type petListType = new TypeToken<List<Pet>>() {}.getType();
+		    List<Pet> pets = gson.fromJson(reader, petListType);
+
+		    for (Pet pet : pets) {
+		        model.addPet(pet);
+		    }
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
 	}
 	
 	private class AdoptPetButtonListener implements ActionListener {
