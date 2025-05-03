@@ -5,6 +5,13 @@ import javax.swing.JLabel;
 import java.awt.BorderLayout;
 
 public class ViewPetDialog extends JDialog{
+	
+	private JLabel nameLabel;
+	private JLabel ageLabel;
+	private JLabel speciesLabel;
+	private JLabel idLabel;
+	private JLabel adoptedLabel;
+	
 	public ViewPetDialog() {
 		getContentPane().setLayout(null);
 		
@@ -32,24 +39,46 @@ public class ViewPetDialog extends JDialog{
 		lblNewLabel_4.setBounds(10, 135, 64, 14);
 		getContentPane().add(lblNewLabel_4);
 		
-		JLabel nameLabel = new JLabel("New label");
+		nameLabel = new JLabel("New label");
 		nameLabel.setBounds(66, 35, 46, 14);
 		getContentPane().add(nameLabel);
 		
-		JLabel ageLabel = new JLabel("New label");
+		ageLabel = new JLabel("New label");
 		ageLabel.setBounds(66, 60, 46, 14);
 		getContentPane().add(ageLabel);
 		
-		JLabel speciesLabel = new JLabel("New label");
+		speciesLabel = new JLabel("New label");
 		speciesLabel.setBounds(66, 85, 46, 14);
 		getContentPane().add(speciesLabel);
 		
-		JLabel idLabel = new JLabel("New label");
+		idLabel = new JLabel("New label");
 		idLabel.setBounds(66, 110, 46, 14);
 		getContentPane().add(idLabel);
 		
-		JLabel adoptedLabel = new JLabel("New label");
+		adoptedLabel = new JLabel("New label");
 		adoptedLabel.setBounds(66, 135, 46, 14);
 		getContentPane().add(adoptedLabel);
 	}
+
+	public JLabel getNameLabel() {
+		return nameLabel;
+	}
+
+	public JLabel getAgeLabel() {
+		return ageLabel;
+	}
+
+	public JLabel getSpeciesLabel() {
+		return speciesLabel;
+	}
+
+	public JLabel getIdLabel() {
+		return idLabel;
+	}
+
+	public JLabel getAdoptedLabel() {
+		return adoptedLabel;
+	}
+	
+	
 }

@@ -23,6 +23,7 @@ import adoptme.model.Rabbit;
 import adoptme.model.Shelter;
 import adoptme.view.AddPetDialog;
 import adoptme.view.MainWindow;
+import adoptme.view.ViewPetDialog;
 
 public class PetController {
 	
@@ -198,7 +199,11 @@ public class PetController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+			ViewPetDialog dialog = new ViewPetDialog();
+			
+			
+			
+			dialog.setVisible(true);
 			
 		}
 		
