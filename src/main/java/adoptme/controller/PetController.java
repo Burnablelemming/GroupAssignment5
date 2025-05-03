@@ -10,9 +10,11 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import adoptme.adapter.ExoticAnimalAdapter;
+import adoptme.adapter.RuntimeTypeAdapterFactory;
 import adoptme.external.ExoticAnimal;
 import adoptme.model.Cat;
 import adoptme.model.Dog;
@@ -36,6 +38,7 @@ public class PetController {
 		this.view.getRemovePetButton().addActionListener(new RemovePetButtonListener());
 		this.view.getViewPetButton().addActionListener(new ViewPetButtonListener());
 		this.view.getSaveShelterButton().addActionListener(new SaveShelterButtonListener());
+		this.view.getSortComboBox().addActionListener(new SortShelterComboBoxListener());
 		
 		initializeShelter();
 	}
@@ -43,7 +46,16 @@ public class PetController {
 	// Initialize the Shelter
 	public void initializeShelter() {
 		
-		Gson gson = new Gson();
+		 // Register RuntimeTypeAdapterFactory for polymorphic Pet deserialization
+	    RuntimeTypeAdapterFactory<Pet> petAdapterFactory = RuntimeTypeAdapterFactory
+	        .of(Pet.class, "type")
+	        .registerSubtype(Dog.class, "Dog")
+	        .registerSubtype(Cat.class, "Cat")
+	        .registerSubtype(Rabbit.class, "Rabbit");
+
+	    Gson gson = new GsonBuilder()
+	        .registerTypeAdapterFactory(petAdapterFactory)
+	        .create();
 		
 		try (FileReader reader = new FileReader("src/main/resources/pets.json")) {
 		    Type petListType = new TypeToken<List<Pet>>() {}.getType();
@@ -62,7 +74,9 @@ public class PetController {
             List<ExoticAnimal> exoticPets = gson.fromJson(reader, exoticType);
             
             for (ExoticAnimal exotic : exoticPets) {
-                model.addPet(new ExoticAnimalAdapter(Integer.parseInt(exotic.getUniqueId()), exotic.getAnimalName(), exotic));  // Use adapter class
+            	String rawId = exotic.getUniqueId();
+            	int id = Integer.parseInt(rawId.replaceAll("\\D+", ""));
+                model.addPet(new ExoticAnimalAdapter(id, exotic.getAnimalName(), exotic));  // Use adapter class
             }
             
         } catch (Exception e) {
@@ -81,6 +95,32 @@ public class PetController {
 		}
 		
 		view.getPetList().setModel(listModel);
+	}
+	
+	private class SortShelterComboBoxListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String selected = (String) view.getSortComboBox().getSelectedItem();
+			
+			switch (selected) {
+			
+			case "Name":
+				model.sortByName();
+				break;
+			
+			case "Age":
+				model.sortByAge();
+				break;
+				
+			case "Species":
+				model.sortBySpecies();
+				break;
+			}
+			
+			updateList();
+		}
+		
 	}
 	
 	private class AdoptPetButtonListener implements ActionListener {
@@ -135,6 +175,8 @@ public class PetController {
 				System.out.println(pet.toString());
 				model.addPet(pet);
 				System.out.println(model.getAllPets().toString());
+				
+				updateList();
 				
 			}
 			
