@@ -12,7 +12,7 @@ public class ExoticAnimal {
     private String category;
     private String subSpecies;
     private int yearsOld;
-
+    
     /**
      * No arg constructor for Gson
      */

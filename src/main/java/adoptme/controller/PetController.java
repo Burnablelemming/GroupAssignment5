@@ -6,11 +6,14 @@ import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.util.List;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import adoptme.adapter.ExoticAnimalAdapter;
+import adoptme.external.ExoticAnimal;
 import adoptme.model.Cat;
 import adoptme.model.Dog;
 import adoptme.model.Pet;
@@ -33,6 +36,8 @@ public class PetController {
 		this.view.getRemovePetButton().addActionListener(new RemovePetButtonListener());
 		this.view.getViewPetButton().addActionListener(new ViewPetButtonListener());
 		this.view.getSaveShelterButton().addActionListener(new SaveShelterButtonListener());
+		
+		initializeShelter();
 	}
 	
 	// Initialize the Shelter
@@ -47,9 +52,35 @@ public class PetController {
 		    for (Pet pet : pets) {
 		        model.addPet(pet);
 		    }
+		    
 		} catch (Exception e) {
-		    e.printStackTrace();
+			e.printStackTrace();
 		}
+		
+		try (FileReader reader = new FileReader("src/main/resources/exotic_animals.json")) {
+            Type exoticType = new TypeToken<List<ExoticAnimal>>() {}.getType();
+            List<ExoticAnimal> exoticPets = gson.fromJson(reader, exoticType);
+            
+            for (ExoticAnimal exotic : exoticPets) {
+                model.addPet(new ExoticAnimalAdapter(Integer.parseInt(exotic.getUniqueId()), exotic.getAnimalName(), exotic));  // Use adapter class
+            }
+            
+        } catch (Exception e) {
+            System.err.println("Failed to load exoticpets.json");
+            e.printStackTrace();
+        }
+		
+		updateList();
+	}
+	
+	public void updateList() {
+		DefaultListModel<Pet> listModel = new DefaultListModel<>();
+		
+		for (Pet pet : model.getAllPets()) {
+			listModel.addElement(pet);
+		}
+		
+		view.getPetList().setModel(listModel);
 	}
 	
 	private class AdoptPetButtonListener implements ActionListener {
