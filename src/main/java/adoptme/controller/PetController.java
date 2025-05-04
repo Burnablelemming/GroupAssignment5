@@ -89,6 +89,25 @@ public class PetController {
 	}
 	
 	public void updateList() {
+		
+		// Sort list on update
+		String selected = (String) view.getSortComboBox().getSelectedItem();
+		
+		switch (selected) {
+		
+		case "Name":
+			model.sortByName(); 
+			break;
+		
+		case "Age":
+			model.sortByAge();
+			break;
+			
+		case "Species":
+			model.sortBySpecies();
+			break;
+		}
+		
 		DefaultListModel<Pet> listModel = new DefaultListModel<>();
 		
 		for (Pet pet : model.getAllPets()) {
