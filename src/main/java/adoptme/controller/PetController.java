@@ -149,14 +149,20 @@ public class PetController {
 		public void actionPerformed(ActionEvent e) {
 			Pet pet = view.getPetList().getSelectedValue();
 			
-			if(pet.isAdopted()) {
-				JOptionPane.showMessageDialog(view, "Pet is already adopted!", "Input Error", JOptionPane.ERROR_MESSAGE);
-				return;
+			if(pet != null) {
+				if(pet.isAdopted()) {
+					JOptionPane.showMessageDialog(view, "Pet is already adopted!", "Input Error", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				else {
+					pet.adopt();
+					JOptionPane.showMessageDialog(view, pet.getName() + " has successfully been adopted", "Success", JOptionPane.INFORMATION_MESSAGE);
+					return;
+				}
 			}
-			
-			pet.adopt();
-			JOptionPane.showMessageDialog(view, pet.getName() + " has successfully been adopted", "Success", JOptionPane.INFORMATION_MESSAGE);
-		}
+			// No pet selected
+			JOptionPane.showMessageDialog(view, "Please select a pet to adopt.", "Input Error", JOptionPane.ERROR_MESSAGE);
+		}	
 	}
 	
 	private class AddPetButtonListener implements ActionListener {
