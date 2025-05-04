@@ -46,7 +46,8 @@ public class Shelter<T extends Pet> {
      * @return	new list of all pets in shelter
      */
     public List<T> getAllPets() {
-        return new ArrayList<>(pets);
+        return pets;
+    	//return new ArrayList<>(pets);
     }
 
     /**

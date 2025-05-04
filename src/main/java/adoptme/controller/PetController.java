@@ -220,8 +220,18 @@ public class PetController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+			Pet removePet = view.getPetList().getSelectedValue();
+//			int removePetIndex = view.getPetList().getSelectedIndex();
 			
+			if (removePet != null) {
+				model.getAllPets().remove(removePet);
+				updateList();
+				JOptionPane.showMessageDialog(view, removePet.getName() + " has successfully been removed.", "Success", JOptionPane.INFORMATION_MESSAGE);
+				return;
+			}
+			
+			JOptionPane.showMessageDialog(view, "Please select a pet to remove.", "Input Error", JOptionPane.ERROR_MESSAGE);
+			System.out.println("Pet Not Removed");
 		}
 		
 	}
