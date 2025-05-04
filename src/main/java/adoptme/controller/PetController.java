@@ -147,10 +147,16 @@ public class PetController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+			Pet pet = view.getPetList().getSelectedValue();
 			
+			if(pet.isAdopted()) {
+				JOptionPane.showMessageDialog(view, "Pet is already adopted!", "Input Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			
+			pet.adopt();
+			JOptionPane.showMessageDialog(view, pet.getName() + " has successfully been adopted", "Success", JOptionPane.INFORMATION_MESSAGE);
 		}
-		
 	}
 	
 	private class AddPetButtonListener implements ActionListener {
