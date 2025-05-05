@@ -10,6 +10,7 @@ import adoptme.view.MainWindow;
 public class Main {
 	
 	public static void main(String[] args) {
+		// Main entry point for the application
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
