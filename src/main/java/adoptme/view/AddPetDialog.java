@@ -9,6 +9,12 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
+/**
+ * A modal dialog for entering new pet information.
+ * Provides fields for name, age, type, species, and ID,
+ * along with "Submit" and "Cancel" buttons to confirm or dismiss input.
+ * Used by the controller to create a new Pet object and add it to the shelter.
+ */
 public class AddPetDialog extends JDialog{
 	
 	private JTextField nameTextField;
@@ -20,6 +26,12 @@ public class AddPetDialog extends JDialog{
 	private boolean submitted = false;
 	private JComboBox typeComboBox;
 	
+	/**
+	 * Constructs a new AddPetDialog tied to a parent JFrame.
+	 * Sets up the UI components and makes the dialog modal so that the parent waits for input.
+	 *
+	 * @param parent the parent JFrame that launched this dialog
+	 */
 	public AddPetDialog(JFrame parent) {
 		// Necessary for allowing the dialog to 'pause' the first add event which triggers 
 		// the dialog to appear in the first place, makes the dialog modal
@@ -75,32 +87,6 @@ public class AddPetDialog extends JDialog{
 		addPetDialogButton.setBounds(10, 227, 89, 23);
 		getContentPane().add(addPetDialogButton);
 		
-//		addPetDialogButton.addActionListener(new ActionListener() {
-//			// Validating input while dialog is open
-//			public void actionPerformed(ActionEvent e) {
-//				String name = nameTextField.getText().trim();
-//				String ageStr = ageTextField.getText().trim();
-//				
-//				if(name.isEmpty()) {
-//					JOptionPane.showMessageDialog(AddPetDialog.this, "Name cannot be empty.", "Input Error", JOptionPane.ERROR_MESSAGE);
-//					return;
-//				}
-//				try {
-//                    Integer parsedAge = Integer.parseInt(ageStr);
-//                    if (parsedAge < 0) {
-//                        JOptionPane.showMessageDialog(AddPetDialog.this, "Age must be a non-negative number.", "Input Error", JOptionPane.ERROR_MESSAGE);
-//                        return;
-//                    }
-//                } catch (NumberFormatException ex) {
-//                    JOptionPane.showMessageDialog(AddPetDialog.this, "Age must be a valid number.", "Input Error", JOptionPane.ERROR_MESSAGE);
-//                    return;
-//                }
-//				
-//				submitted = true;
-//				setVisible(false);
-//			}
-//		});
-		
 		cancelPetDialogButton = new JButton("Cancel");
 		cancelPetDialogButton.setBounds(185, 227, 89, 23);
 		getContentPane().add(cancelPetDialogButton);
@@ -109,52 +95,86 @@ public class AddPetDialog extends JDialog{
 		typeComboBox.setModel(new DefaultComboBoxModel(new String[] {"Dog", "Cat", "Rabbit"}));
 		typeComboBox.setBounds(66, 120, 86, 22);
 		getContentPane().add(typeComboBox);
-		
-//		cancelPetDialogButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				submitted = false;
-//				setVisible(false);
-//			}
-//		});
 	}
 	
+	/**
+	 * Returns whether the user submitted the dialog.
+	 *
+	 * @return true if the form was submitted, false otherwise
+	 */
 	public boolean isSubmitted() {
 		return submitted;
 	}
 	
+	/**
+	 * Sets whether the dialog was submitted.
+	 *
+	 * @param submitted true if the form was submitted, false if canceled
+	 */
 	public void setSubmitted(boolean submitted) {
 		this.submitted = submitted;
 	}
 	
+	/**
+	 * Gets the text field used for entering the pet's name.
+	 *
+	 * @return JTextField for the pet name
+	 */
 	public JTextField getNameTextField() {
 		return nameTextField;
 	}
 
+	/**
+	 * Gets the text field used for entering the pet's age.
+	 *
+	 * @return JTextField for the pet age
+	 */
 	public JTextField getAgeTextField() {
 		return ageTextField;
 	}
-
+	
+	/**
+	 * Gets the text field used for entering the pet's species.
+	 *
+	 * @return JTextField for the pet species
+	 */
 	public JTextField getSpeciesTextField() {
 		return speciesTextField;
 	}
 
+	/**
+	 * Gets the text field used for entering the pet's ID.
+	 *
+	 * @return JTextField for the pet ID
+	 */
 	public JTextField getIdTextField() {
 		return idTextField;
 	}
 
+	/**
+	 * Gets the "Cancel" button used to close the dialog without submitting.
+	 *
+	 * @return JButton for canceling the form
+	 */
 	public JButton getCancelPetDialogButton() {
 		return cancelPetDialogButton;
 	}
-
+	
+	/**
+	 * Gets the combo box for selecting the pet type (Dog, Cat, Rabbit).
+	 *
+	 * @return JComboBox for selecting the pet type
+	 */
 	public JComboBox getTypeComboBox() {
 		return typeComboBox;
 	}
-
+	
+	/**
+	 * Gets the "Submit" button used to confirm the pet input.
+	 *
+	 * @return JButton for submitting the form
+	 */
 	public JButton getAddPetDialogButton() {
 		return addPetDialogButton;
-	}
-	
-	public JButton getCancelPetDialogButtong() {	
-		return cancelPetDialogButton;
 	}
 }
