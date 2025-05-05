@@ -26,11 +26,24 @@ import adoptme.view.AddPetDialog;
 import adoptme.view.MainWindow;
 import adoptme.view.ViewPetDialog;
 
+/**
+ * The PetController class acts as the controller in the MVC architecture. 
+ * It connects the Shelter model with the MainWindow view, sets up event listeners,
+ * and handles loading, displaying, modifying, and saving pet data.
+ */
 public class PetController {
 	
+	// Model and view used by the controller
 	private Shelter<Pet> model;
 	private MainWindow view;
 	
+	/**
+	 * Constructs a PetController that binds the model and view, sets up UI event listeners,
+	 * and loads pet data from JSON files into the shelter.
+	 * 
+	 * @param model	the Shelter model containing pets
+	 * @param view	the main GUI window of the application
+	 */
 	public PetController(Shelter<Pet> model, MainWindow view) {
 		this.model = model;
 		this.view = view;
@@ -45,7 +58,11 @@ public class PetController {
 		initializeShelter();
 	}
 	
-	// Initialize the Shelter
+	/**
+	 * Initializes the shelter by loading pet data from pets.json and exotic_animals.json.
+	 * Uses Gson and the RuntimeTypeAdapterFactory to deserialize Pet data.
+	 * Exotic animals are adapted into Pets using ExoticAnimalAdapter.
+	 */
 	public void initializeShelter() {
 		
 		 // Register RuntimeTypeAdapterFactory for building the Gson
@@ -59,6 +76,7 @@ public class PetController {
 	        .registerTypeAdapterFactory(petAdapterFactory)
 	        .create();
 		
+	    // Create regular pets
 		try (FileReader reader = new FileReader("src/main/resources/pets.json")) {
 		    Type petListType = new TypeToken<List<Pet>>() {}.getType();
 		    List<Pet> pets = gson.fromJson(reader, petListType);
@@ -71,6 +89,7 @@ public class PetController {
 			e.printStackTrace();
 		}
 		
+		// Read and convert Exotic pets here
 		try (FileReader reader = new FileReader("src/main/resources/exotic_animals.json")) {
             Type exoticType = new TypeToken<List<ExoticAnimal>>() {}.getType();
             List<ExoticAnimal> exoticPets = gson.fromJson(reader, exoticType);
@@ -89,6 +108,10 @@ public class PetController {
 		updateList();
 	}
 	
+	/**
+	 * Updates the pet list in the view by retrieving all pets from the model, 
+	 * sorting them based on the selected sort type, and populating the JList.
+	 */
 	public void updateList() {
 		
 		// Sort list on update
@@ -109,6 +132,7 @@ public class PetController {
 			break;
 		}
 		
+		// Make new ListModel and populate with updated, properly sorted Pet list
 		DefaultListModel<Pet> listModel = new DefaultListModel<>();
 		
 		for (Pet pet : model.getAllPets()) {
@@ -118,6 +142,10 @@ public class PetController {
 		view.getPetList().setModel(listModel);
 	}
 	
+	/**
+	 * Handles sorting the shelter when the sort combo box is changed.
+	 * Sorts by name, age, or species depending on the selected item.
+	 */
 	private class SortShelterComboBoxListener implements ActionListener {
 
 		@Override
@@ -144,6 +172,11 @@ public class PetController {
 		
 	}
 	
+	/**
+	 * Handles adopting a selected pet from the list.
+	 * Marks the pet as adopted and displays a confirmation dialog.
+	 * Shows an error if no pet is selected or if the pet is already adopted.
+	 */
 	private class AdoptPetButtonListener implements ActionListener {
 
 		@Override
@@ -166,6 +199,10 @@ public class PetController {
 		}	
 	}
 	
+	/**
+	 * Handles opening the AddPetDialog and adding a new pet to the shelter
+	 * if the form submitted is valid. Also supports multiple pet types (Dog, Cat, Rabbit).
+	 */
 	private class AddPetButtonListener implements ActionListener {
 
 		@Override
@@ -205,9 +242,10 @@ public class PetController {
 					JOptionPane.showMessageDialog(null, "Unknown pet type: " + type);
 				}
 				
-				System.out.println(pet.toString());
+				// Debugging print statements
+				//System.out.println(pet.toString());
 				model.addPet(pet);
-				System.out.println(model.getAllPets().toString());
+				//System.out.println(model.getAllPets().toString());
 				
 				updateList();
 				
@@ -217,6 +255,11 @@ public class PetController {
 		
 	}
 	
+	/**
+	 * Handles removing a selected pet from the list.
+	 * Displays a successful dialog removal and updates list.
+	 * Displays an error dialog if no pet was selected.
+	 */
 	private class RemovePetButtonListener implements ActionListener {
 
 		@Override
@@ -231,11 +274,14 @@ public class PetController {
 			}
 			
 			JOptionPane.showMessageDialog(view, "Please select a pet to remove.", "Input Error", JOptionPane.ERROR_MESSAGE);
-			System.out.println("Pet Not Removed");
 		}
 		
 	}
 	
+	/**
+	 * Handles viewing the details of a selected pet in a pop-up dialog.
+	 * Displays all relevant pet fields (name, age, species, ID, adopted status).
+	 */
 	private class ViewPetButtonListener implements ActionListener {
 
 		@Override
@@ -258,6 +304,10 @@ public class PetController {
 		
 	}
 	
+	/**
+	 * Handles saving the current Pet list to a time stamped JSON file using Gson.
+	 * Uses RuntimeTypeAdapterFactory to preserve type information.
+	 */
 	private class SaveShelterButtonListener implements ActionListener {
 
 		@Override
