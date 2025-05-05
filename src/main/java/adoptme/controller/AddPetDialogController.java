@@ -7,16 +7,32 @@ import javax.swing.JOptionPane;
 
 import adoptme.view.AddPetDialog;
 
+/**
+ * Controller for the AddPetDialog. Handles form validation and submission logic
+ * for adding a new pet to the shelter. Connects button actions in the dialog
+ * to input checks and user feedback.
+ */
 public class AddPetDialogController {
 	
 	private AddPetDialog dialog;
 	
+	/**
+	 * Constructs a controller for the given AddPetDialog.
+	 * Adds action listeners to handle submit and cancel events.
+	 *
+	 * @param dialog the AddPetDialog instance this controller manages
+	 */
 	public AddPetDialogController(AddPetDialog dialog) {
 		this.dialog = dialog;
 		this.dialog.getAddPetDialogButton().addActionListener(new AddPetDialogButtonListener());
-		this.dialog.getCancelPetDialogButtong().addActionListener(new CancelPetDialogButtonListener());
+		this.dialog.getCancelPetDialogButton().addActionListener(new CancelPetDialogButtonListener());
 	}
 	
+	/**
+	 * Handles the logic when the "Submit" button is clicked.
+	 * Validates that all fields are filled in and that age and ID are valid integers.
+	 * If validation passes, the dialog is marked as submitted and closed.
+	 */
 	private class AddPetDialogButtonListener implements ActionListener {
 		
 		@Override
@@ -50,6 +66,10 @@ public class AddPetDialogController {
 		}
 	}
 	
+	/**
+	 * Handles the logic when the "Cancel" button is clicked.
+	 * Clears the input fields, marks the dialog as not submitted, and closes it.
+	 */
 	private class CancelPetDialogButtonListener implements ActionListener {
 
 		@Override
@@ -60,6 +80,10 @@ public class AddPetDialogController {
 		}
 	}
 	
+	/**
+	 * Clears all text fields in the dialog.
+	 * Called when the cancel button is pressed.
+	 */
 	public void clearTextFields() {
 		dialog.getNameTextField().setText("");
 		dialog.getAgeTextField().setText("");
