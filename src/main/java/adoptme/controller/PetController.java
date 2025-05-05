@@ -3,6 +3,7 @@ package adoptme.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class PetController {
 	// Initialize the Shelter
 	public void initializeShelter() {
 		
-		 // Register RuntimeTypeAdapterFactory for polymorphic Pet deserialization
+		 // Register RuntimeTypeAdapterFactory for building the Gson
 	    RuntimeTypeAdapterFactory<Pet> petAdapterFactory = RuntimeTypeAdapterFactory
 	        .of(Pet.class, "type")
 	        .registerSubtype(Dog.class, "Dog")
@@ -261,8 +262,29 @@ public class PetController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			
+			RuntimeTypeAdapterFactory<Pet> petAdapterFactory = RuntimeTypeAdapterFactory
+			        .of(Pet.class, "type")
+			        .registerSubtype(Dog.class, "Dog")
+			        .registerSubtype(Cat.class, "Cat")
+			        .registerSubtype(Rabbit.class, "Rabbit")
+					.registerSubtype(ExoticAnimalAdapter.class, "Exotic");
+			Gson gson = new GsonBuilder()
+		        .registerTypeAdapterFactory(petAdapterFactory)
+		        .setPrettyPrinting()
+		        .create();
+			
+			// Create file time stamp
+			String timestamp = new java.text.SimpleDateFormat("yyyyMMdd_HHmmss").format(new java.util.Date());
+			String filename = "src/main/resources/" + timestamp + "_pets.json";
+			
+			try (FileWriter writer = new FileWriter(filename)){
+				gson.toJson(model.getAllPets(), writer);
+				JOptionPane.showMessageDialog(view, "Shelter saved as " + filename, "Success", JOptionPane.INFORMATION_MESSAGE);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				JOptionPane.showMessageDialog(view, "Failed to save shelter.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 		
 	}
