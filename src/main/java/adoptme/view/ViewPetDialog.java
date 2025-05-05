@@ -7,6 +7,10 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JSeparator;
 
+/**
+ * A dialog used to display detailed information about a selected pet.
+ * Shows name, age, species, ID, and adoption status.
+ */
 public class ViewPetDialog extends JDialog{
 	
 	private JPanel panel;
@@ -24,8 +28,6 @@ public class ViewPetDialog extends JDialog{
 		panel = new JPanel();
 		setContentPane(panel);
 		getContentPane().setLayout(null);
-		
-		//getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Name: ");
 		lblNewLabel.setBounds(10, 35, 46, 14);
@@ -76,22 +78,47 @@ public class ViewPetDialog extends JDialog{
 		panel.add(separator);
 	}
 
+	/**
+	 * Returns the label used to display the pet's name.
+	 *
+	 * @return JLabel for the pet's name
+	 */
 	public JLabel getNameLabel() {
 		return nameLabel;
 	}
 
+	/**
+	 * Returns the label used to display the pet's age.
+	 * 
+	 * @return
+	 */
 	public JLabel getAgeLabel() {
 		return ageLabel;
 	}
 
+	/**
+	 * Returns the label used to display the pet's species.
+	 *
+	 * @return JLabel for the pet's species
+	 */
 	public JLabel getSpeciesLabel() {
 		return speciesLabel;
 	}
 
+	/**
+	 * Returns the label used to display the pet's ID.
+	 *
+	 * @return JLabel for the pet's ID
+	 */
 	public JLabel getIdLabel() {
 		return idLabel;
 	}
 
+	/**
+	 * Returns the label used to display whether the pet is adopted.
+	 *
+	 * @return JLabel for the pet's adoption status
+	 */
 	public JLabel getAdoptedLabel() {
 		return adoptedLabel;
 	}
