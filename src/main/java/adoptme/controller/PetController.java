@@ -221,7 +221,6 @@ public class PetController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Pet removePet = view.getPetList().getSelectedValue();
-//			int removePetIndex = view.getPetList().getSelectedIndex();
 			
 			if (removePet != null) {
 				model.getAllPets().remove(removePet);
@@ -240,12 +239,20 @@ public class PetController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			ViewPetDialog dialog = new ViewPetDialog();
+			// Get the selected pet
+			Pet viewPet = view.getPetList().getSelectedValue();
 			
-			
-			
-			dialog.setVisible(true);
-			
+			if (viewPet != null) {
+				ViewPetDialog dialog = new ViewPetDialog();
+				dialog.getNameLabel().setText(viewPet.getName());
+				dialog.getAgeLabel().setText(String.valueOf(viewPet.getAge()));
+				dialog.getSpeciesLabel().setText(viewPet.getSpecies());
+				dialog.getIdLabel().setText(String.valueOf(viewPet.getId()));
+				dialog.getAdoptedLabel().setText(viewPet.isAdopted() ? "True" :"False");
+				dialog.setVisible(true);
+				return;
+			}
+			JOptionPane.showMessageDialog(view, "Please select a pet to view.", "Input Error", JOptionPane.ERROR_MESSAGE);
 		}
 		
 	}
