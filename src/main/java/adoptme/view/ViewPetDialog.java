@@ -20,6 +20,11 @@ public class ViewPetDialog extends JDialog{
 	private JLabel idLabel;
 	private JLabel adoptedLabel;
 	
+	/**
+	 * Creates a dialog window for displaying information about a selected pet.
+	 * Shows the pet's name, age, species, ID, and adoption status.
+	 * Closes the dialog when the window is dismissed.
+	 */
 	public ViewPetDialog() {
 		setTitle("Pet Information");
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

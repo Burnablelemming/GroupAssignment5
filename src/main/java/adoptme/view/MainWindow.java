@@ -11,6 +11,11 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
 
+/**
+ * The main application window for the Adopt Me program.
+ * Displays a list of pets in the shelter and provides buttons for
+ * adding, removing, adopting, viewing, sorting, and saving pets.
+ */
 public class MainWindow extends JFrame {
 	
 	private JPanel panel;
@@ -24,6 +29,11 @@ public class MainWindow extends JFrame {
 	private JButton saveShelterButton;
 	private JLabel sortLabel;
 
+	/**
+	 * Constructs the main window UI and initializes all components,
+	 * including the pet list, control buttons, and sorting options.
+	 * Sets up the layout and default window behavior.
+	 */
 	public MainWindow() {
 		setTitle("Adopt Me Program");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -71,29 +81,65 @@ public class MainWindow extends JFrame {
 		panel.add(sortLabel);
 	}
 	
+	/**
+	 * Returns the list component displaying all pets in the shelter.
+	 *
+	 * @return JList of Pet objects
+	 */
 	public JList<Pet> getPetList() {
 		return petList;
 	}
 	
+	/**
+	 * Returns the combo box used to select sorting criteria (Name, Age, Species).
+	 *
+	 * @return JComboBox for sorting options
+	 */
 	public JComboBox<String> getSortComboBox(){
 		return sortComboBox;
 	}
+	
+	/**
+	 * Returns the button used to adopt the selected pet.
+	 *
+	 * @return JButton for adopting pets
+	 */
 	public JButton getAdoptPetButton() {
 		return adoptPetButton;
 	}
 
+	/**
+	 * Returns the button used to open the Add Pet dialog.
+	 *
+	 * @return JButton for adding new pets
+	 */
 	public JButton getAddPetButton() {
 		return addPetButton;
 	}
 
+	/**
+	 * Returns the button used to remove the selected pet.
+	 *
+	 * @return JButton for removing pets
+	 */
 	public JButton getRemovePetButton() {
 		return removePetButton;
 	}
 
+	/**
+	 * Returns the button used to view the selected pet's details.
+	 *
+	 * @return JButton for viewing pet information
+	 */
 	public JButton getViewPetButton() {
 		return viewPetButton;
 	}
 
+	/**
+	 * Returns the button used to save the shelter's current state to a file.
+	 *
+	 * @return JButton for saving the shelter
+	 */
 	public JButton getSaveShelterButton() {
 		return saveShelterButton;
 	}
