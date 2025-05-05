@@ -11,6 +11,7 @@ import java.util.Map;
 
 /**
  * Copied from https://github.com/google/gson/blob/master/extras/src/main/java/com/google/gson/typeadapters/RuntimeTypeAdapterFactory.java
+ * Used to deal with run time deserialization when reading and writing objects using Pet as abstract in our application
  */
 public final class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
     private final Class<?> baseType;
